@@ -21,4 +21,4 @@ class ProjectReader:
         dev_dependencies = list(poetry_data['group']['dev']['dependencies'].keys())
 
         # deserialisoi TOML-formaatissa oleva merkkijono ja muodosta Project-olio sen tietojen perusteella
-        return Project(name, description, dependencies, dev_dependencies)
+        return Project(name, description, license, authors, dependencies, dev_dependencies)
