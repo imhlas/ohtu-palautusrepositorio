@@ -6,3 +6,4 @@ These are then voted on for discussion priority.
 Participants write brief notes about the sprint on cards, then describe and categorize them on the whiteboard under Glad, Sad, or Mad. Issues are grouped, voted on, and discussed in descending order of votes, focusing on actionable steps for the next sprint. The session concludes after an hour or once all issues are addressed.
 
 first commit
+second commit
