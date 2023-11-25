@@ -189,3 +189,28 @@ class TestKauppa(unittest.TestCase):
 
         # tarkistetaan että tässä vaiheessa viitegeneraattorin metodia uusi on kutsuttu kolme kertaa
         self.assertEqual(self.viitegeneraattori_mock.uusi.call_count, 3)
+
+    def test_poistaminen_korista_vahentaa_ostoskorin_summaa(self):
+        def varasto_saldo(tuote_id):
+            if tuote_id == 1:
+                return 10
+            if tuote_id == 2:
+                return 5
+
+        def varasto_hae_tuote(tuote_id):
+            if tuote_id == 1:
+                return Tuote(1, "maito", 5)
+            if tuote_id == 2:
+                return Tuote(2, "leipä", 3)
+
+        self.varasto_mock.saldo.side_effect = varasto_saldo
+        self.varasto_mock.hae_tuote.side_effect = varasto_hae_tuote
+
+        # Lisätään ja poistetaan tuotteita
+        self.kauppa.aloita_asiointi()
+        self.kauppa.lisaa_koriin(1)
+        self.kauppa.lisaa_koriin(2)
+        self.kauppa.poista_korista(1)
+
+        # Tarkistetaan, että korin hinta on nyt vain leivän hinta
+        self.assertEqual(self.kauppa._ostoskori.hinta(), 3)
