@@ -1,7 +1,6 @@
 class TennisGame:
     SCORE_NAMES = ["Love", "Fifteen", "Thirty", "Forty"]
     SCORE_NAMES2 = ["Love-All", "Fifteen-All", "Thirty-All"]
-    ONE_POINT = 1
     DEUCE = 3
     ADVANTAGE = 4
 
@@ -35,11 +34,11 @@ class TennisGame:
     def score_advantage_or_win(self):
         difference = self.player1_score - self.player2_score
 
-        if difference == self.ONE_POINT:
+        if difference == 1:
             return "Advantage player1"
-        elif difference == -self.ONE_POINT:
+        elif difference == -1:
             return "Advantage player2"
-        elif difference >= self.ONE_POINT +1:
+        elif difference >= 2:
             return "Win for player1"
         else:
             return "Win for player2"
