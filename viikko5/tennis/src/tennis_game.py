@@ -1,4 +1,6 @@
 class TennisGame:
+    ONE_POINT = 1
+
     def __init__(self, player1_name, player2_name):
         self.player1_name = player1_name
         self.player2_name = player2_name
@@ -19,16 +21,8 @@ class TennisGame:
             score = self.score_tie()
 
         elif self.m_score1 >= 4 or self.m_score2 >= 4:
-            minus_result = self.m_score1 - self. m_score2
+            score = self.score_advantage_or_win()
 
-            if minus_result == 1:
-                score = "Advantage player1"
-            elif minus_result == -1:
-                score = "Advantage player2"
-            elif minus_result >= 2:
-                score = "Win for player1"
-            else:
-                score = "Win for player2"
         else:
             for i in range(1, 3):
                 if i == 1:
@@ -51,3 +45,15 @@ class TennisGame:
     def score_tie(self):
         scores = ["Love-All", "Fifteen-All", "Thirty-All"]
         return scores[self.m_score1] if self.m_score1 < 3 else "Deuce"
+
+    def score_advantage_or_win(self):
+        difference = self.m_score1 - self.m_score2
+
+        if difference == self.ONE_POINT:
+            return "Advantage player1"
+        elif difference == -self.ONE_POINT:
+            return "Advantage player2"
+        elif difference >= self.ONE_POINT +1:
+            return "Win for player1"
+        else:
+            return "Win for player2"
