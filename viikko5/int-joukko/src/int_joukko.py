@@ -30,16 +30,15 @@ class IntJoukko:
             self.ljono[self.alkioiden_lkm] = n
             self.alkioiden_lkm += 1
 
-            # ei mahdu enempää, luodaan uusi säilytyspaikka luvuille
-            if self.alkioiden_lkm % len(self.ljono) == 0:
-                taulukko_old = self.ljono
-                self.kopioi_lista(self.ljono, taulukko_old)
-                self.ljono = self._luo_lista(self.alkioiden_lkm + self.kasvatuskoko)
-                self.kopioi_lista(taulukko_old, self.ljono)
+            if self.alkioiden_lkm == len(self.ljono):
+                self.kasvata()
 
             return True
 
         return False
+
+    def kasvata(self):
+        self.ljono += [0] * self.kasvatuskoko
 
     def poista(self, n):
         if n in self.ljono:
@@ -53,10 +52,6 @@ class IntJoukko:
             return True
 
         return False
-
-    def kopioi_lista(self, a, b):
-        for i in range(0, len(a)):
-            b[i] = a[i]
 
     def mahtavuus(self):
         return self.alkioiden_lkm
