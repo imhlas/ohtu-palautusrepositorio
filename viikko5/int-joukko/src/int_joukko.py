@@ -51,19 +51,14 @@ class IntJoukko:
         return False
 
     def poista(self, n):
-        kohta = -1
+        if n in self.ljono:
+            kohta = self.ljono.index(n)
 
-        for i in range(0, self.alkioiden_lkm):
-            if n == self.ljono[i]:
-                kohta = i
-                self.ljono[kohta] = 0
-                break
-
-        if kohta != -1:
             for j in range(kohta, self.alkioiden_lkm - 1):
                 self.ljono[j] = self.ljono[j + 1]
 
             self.alkioiden_lkm -= 1
+            self.ljono[self.alkioiden_lkm] = 0
             return True
 
         return False
