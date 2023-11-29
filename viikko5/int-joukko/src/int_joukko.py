@@ -8,23 +8,19 @@ class IntJoukko:
         return [0] * koko
 
     def __init__(self, kapasiteetti=None, kasvatuskoko=None):
-        if kapasiteetti is None:
-            self.kapasiteetti = KAPASITEETTI
-        elif not isinstance(kapasiteetti, int) or kapasiteetti < 0:
-            raise Exception("Väärä kapasiteetti")  # heitin vaan jotain :D
-        else:
-            self.kapasiteetti = kapasiteetti
-
-        if kasvatuskoko is None:
-            self.kasvatuskoko = OLETUSKASVATUS
-        elif not isinstance(kapasiteetti, int) or kapasiteetti < 0:
-            raise Exception("kapasiteetti2")  # heitin vaan jotain :D
-        else:
-            self.kasvatuskoko = kasvatuskoko
+        self.kapasiteetti = self._tarkista_arvo(kapasiteetti, KAPASITEETTI)
+        self.kasvatuskoko = self._tarkista_arvo(kasvatuskoko, OLETUSKASVATUS)
 
         self.ljono = self._luo_lista(self.kapasiteetti)
 
         self.alkioiden_lkm = 0
+
+    def _tarkista_arvo(self, arvo, oletus):
+        if arvo is None:
+            return oletus
+        if not isinstance(arvo, int) or arvo < 0:
+            raise Exception("Virheellinen arvo")
+        return arvo
 
     def kuuluu(self, n):
         return n in self.ljono
