@@ -11,7 +11,7 @@ class IntJoukko:
         self.kapasiteetti = self._tarkista_arvo(kapasiteetti, KAPASITEETTI)
         self.kasvatuskoko = self._tarkista_arvo(kasvatuskoko, OLETUSKASVATUS)
 
-        self.ljono = self._luo_lista(self.kapasiteetti)
+        self.alkiot = self._luo_lista(self.kapasiteetti)
 
         self.alkioiden_lkm = 0
 
@@ -23,14 +23,14 @@ class IntJoukko:
         return arvo
 
     def kuuluu(self, n):
-        return n in self.ljono
+        return n in self.alkiot
 
     def lisaa(self, n):
         if not self.kuuluu(n):
-            self.ljono[self.alkioiden_lkm] = n
+            self.alkiot[self.alkioiden_lkm] = n
             self.alkioiden_lkm += 1
 
-            if self.alkioiden_lkm == len(self.ljono):
+            if self.alkioiden_lkm == len(self.alkiot):
                 self.kasvata()
 
             return True
@@ -38,17 +38,17 @@ class IntJoukko:
         return False
 
     def kasvata(self):
-        self.ljono += [0] * self.kasvatuskoko
+        self.alkiot += [0] * self.kasvatuskoko
 
     def poista(self, n):
-        if n in self.ljono:
-            kohta = self.ljono.index(n)
+        if n in self.alkiot:
+            kohta = self.alkiot.index(n)
 
             for j in range(kohta, self.alkioiden_lkm - 1):
-                self.ljono[j] = self.ljono[j + 1]
+                self.alkiot[j] = self.alkiot[j + 1]
 
             self.alkioiden_lkm -= 1
-            self.ljono[self.alkioiden_lkm] = 0
+            self.alkiot[self.alkioiden_lkm] = 0
             return True
 
         return False
@@ -60,7 +60,7 @@ class IntJoukko:
         taulu = self._luo_lista(self.alkioiden_lkm)
 
         for i in range(0, len(taulu)):
-            taulu[i] = self.ljono[i]
+            taulu[i] = self.alkiot[i]
 
         return taulu
 
@@ -109,12 +109,12 @@ class IntJoukko:
         if self.alkioiden_lkm == 0:
             return "{}"
         elif self.alkioiden_lkm == 1:
-            return "{" + str(self.ljono[0]) + "}"
+            return "{" + str(self.alkiot[0]) + "}"
         else:
             tuotos = "{"
             for i in range(0, self.alkioiden_lkm - 1):
-                tuotos = tuotos + str(self.ljono[i])
+                tuotos = tuotos + str(self.alkiot[i])
                 tuotos = tuotos + ", "
-            tuotos = tuotos + str(self.ljono[self.alkioiden_lkm - 1])
+            tuotos = tuotos + str(self.alkiot[self.alkioiden_lkm - 1])
             tuotos = tuotos + "}"
             return tuotos
