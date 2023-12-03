@@ -1,6 +1,6 @@
 from statistics import Statistics
 from player_reader import PlayerReader
-from matchers import And, HasAtLeast, PlaysIn, All, Not, HasFewerThan
+from matchers import And, HasAtLeast, PlaysIn, All, Not, HasFewerThan, Or
 
 def main():
     url = "https://studies.cs.helsinki.fi/nhlstats/2022-23/players.txt"
@@ -16,30 +16,30 @@ def main():
     for player in stats.matches(matcher):
         print(player)
 
-    print("\n--- Pelaajia yhteensä ---\n")
+    print("\n--- Pelaajat, joilla vähintään 45 maalia tai 70 syöttöä ---\n")
 
-    filtered_with_all = stats.matches(All())
-    print(len(filtered_with_all))
-
-
-    matcher = And(
-        Not(HasAtLeast(2, "goals")),
-        PlaysIn("NYR")
+    matcher = Or(
+        HasAtLeast(45, "goals"),
+        HasAtLeast(70, "assists")
     )
-
-    print("\n--- Kaikki joukkueen NRY pelaajat, joilla 0 tai 1 maalia ---\n")
 
     for player in stats.matches(matcher):
         print(player)
 
-    matcher = And(
-        HasFewerThan(2, "goals"),
-        PlaysIn("NYR")
-    )
+    print("\n--- Kaikki vähintään 70 pistettä tehneet pelaajat joukkueista NYR, FLA tai BOS ---\n")
 
-    print("\n--- Sama lista toisella tavalla ---\n")
+    matcher = And(
+        HasAtLeast(70, "points"),
+        Or(
+            PlaysIn("NYR"),
+            PlaysIn("FLA"),
+            PlaysIn("BOS")
+        )
+    )
 
     for player in stats.matches(matcher):
         print(player)
+
+
 if __name__ == "__main__":
     main()
