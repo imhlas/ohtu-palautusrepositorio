@@ -9,14 +9,11 @@ def main():
     stats = Statistics(reader)
 
     query = QueryBuilder()
-    matcher = query.build()
 
-    pelaajien_maara = 0
+    matcher = query.playsIn("NYR").build()
+
     for player in stats.matches(matcher):
         print(player)
-        pelaajien_maara += 1
-
-    print("Pelaajien määrä:", pelaajien_maara)
 
 if __name__ == "__main__":
     main()
